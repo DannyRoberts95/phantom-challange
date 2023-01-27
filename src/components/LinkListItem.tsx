@@ -1,5 +1,6 @@
 import React from 'react';
-import Chip from './Chip';
+import ChipList from './ChipList';
+import styles from './LinkListItem.module.css';
 
 type PropTypes = {
   link: Link;
@@ -23,18 +24,13 @@ const LinkListItem = ({
   const { url, categories = [] } = link;
 
   return (
-    <div {...others}>
-      {url}
+    <div className={styles.root} {...others}>
+      <h3 className={`text-lg`}>{url}</h3>
       {/* <iframe src={url} height="200" width="300" title="Link Iframe"></iframe> */}
-      {categories && (
-        <div>
-          {categories.map((cat) => (
-            <Chip key={cat} label={cat} />
-          ))}
-        </div>
-      )}
+
+      <ChipList categories={categories} viewOnly />
+
       <button onClick={deleteLink}>Remove</button>
-      <hr />
     </div>
   );
 };

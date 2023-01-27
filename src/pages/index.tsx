@@ -1,6 +1,5 @@
-import CreateLinkModal from '@/components/CreateLinkForm';
+import CreateLinkSection from '@/components/CreateLinkSection';
 import LinkList from '@/components/LinkList';
-import styles from '@/styles/Home.module.css';
 
 type PropTypes = {
   data: Link[];
@@ -14,8 +13,8 @@ export default function Index({
   clearLocalData,
 }: PropTypes) {
   return (
-    <main className={styles.main}>
-      <CreateLinkModal
+    <main>
+      <CreateLinkSection
         links={data}
         updateLocalData={updateLocalData}
         clearLocalData={clearLocalData}

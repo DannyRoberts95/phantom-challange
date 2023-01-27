@@ -1,5 +1,7 @@
 import React from 'react';
 import CreateLinkForm from '@/components/CreateLinkForm';
+import styles from './CreateLinkSection.module.css';
+
 type PropTypes = {
   links: Link[];
   updateLocalData: () => void;
@@ -10,7 +12,7 @@ const CreateLinkModal = (props: PropTypes) => {
   const { links = [], updateLocalData, clearLocalData } = props;
 
   return (
-    <div style={{ border: `1px solid red` }}>
+    <div className={styles.root}>
       <CreateLinkForm
         links={links}
         updateLocalData={updateLocalData}

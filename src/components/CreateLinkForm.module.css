@@ -1,0 +1,10 @@
+.root {
+  width: 100%;
+}
+
+.linkInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: x-large;
+  text-transform: uppercase;
+}

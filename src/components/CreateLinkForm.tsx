@@ -3,6 +3,8 @@ import { isEmpty, isNotValidUrl } from '@/utils/validations';
 
 import ChipList from './ChipList';
 
+import styles from './CreateLinkForm.module.css';
+
 type PropTypes = {
   links: Link[];
   updateLocalData: () => void;
@@ -48,17 +50,17 @@ const CreateLinkModal = (props: PropTypes) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //Comment to add filler list items
-    setErrorMessage(``);
-    setLinkInputValue(``);
-    setCategories([]);
-    const fakeLink: Link = {
-      url: `https://derp.com/${Math.random()}`,
-      timestamp: new Date().getTime(),
-      categories,
-    };
-    updateLocalData([...links, fakeLink]);
-    return;
+    // //Comment to add filler list items
+    // setErrorMessage(``);
+    // setLinkInputValue(``);
+    // setCategories([]);
+    // const fakeLink: Link = {
+    //   url: `https://derp.com/${Math.random()}`,
+    //   timestamp: new Date().getTime(),
+    //   categories,
+    // };
+    // updateLocalData([fakeLink, ...links]);
+    // return;
 
     //Validate the form...
 
@@ -95,15 +97,17 @@ const CreateLinkModal = (props: PropTypes) => {
       timestamp: new Date().getTime(),
       categories,
     };
-    const newData = [...links, newLink];
+    const newData = [newLink, ...links];
     updateLocalData(newData);
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form className={styles.root} onSubmit={handleSubmit} noValidate>
       <input
+        className={styles.linkInput}
         name="link"
         type={`url`}
+        placeholder="Enter a link"
         value={linkInputValue}
         onChange={handleInputChange}
         autoFocus
@@ -117,10 +121,10 @@ const CreateLinkModal = (props: PropTypes) => {
         categories={computeAvailableCategories()}
         handleSelect={handleCategorySelect}
       />
-      <hr />
 
-      <button type="submit">ADD NEW LINK</button>
-      <hr />
+      <button className={styles.AddLinkButton} type="submit">
+        ADD NEW LINK
+      </button>
     </form>
   );
 };

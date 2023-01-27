@@ -1,0 +1,11 @@
+.root {
+  border: 1px solid var(--text-color);
+  width: fit-content;
+  padding: 3px 4px;
+  margin-right: 4px;
+
+  display: inline-block;
+
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}

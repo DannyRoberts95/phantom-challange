@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import LinkListItem from '@/components/LinkListItem';
 import { useRouter } from 'next/router';
-
+import styles from './LinkList.module.css';
 type PropTypes = {
   links: Link[];
   updateLocalData: () => void;
@@ -38,7 +38,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
   }, [parsedPageValue, links]);
 
   return (
-    <div>
+    <div className={styles.root}>
       {/* Clear all button */}
       <button onClick={clearLocalData}>Clear All</button>
 
@@ -53,12 +53,17 @@ const LinkList = (props: PropTypes): JSX.Element => {
       ))}
 
       {/* Pagination */}
-      <div>
-        {parsedPageValue > 0 && <button onClick={handlePrev}>Prev</button>}
-        {parsedPageValue + 1}
-        {parsedPageValue < links.length / maxLinksPerPage && (
-          <button onClick={handleNext}>Next</button>
-        )}
+
+      <div className={styles.pagination}>
+        <div>
+          {parsedPageValue > 0 && <button onClick={handlePrev}>Prev</button>}
+        </div>
+        <div>{parsedPageValue + 1}</div>
+        <div>
+          {parsedPageValue < links.length / maxLinksPerPage - 1 && (
+            <button onClick={handleNext}>Next</button>
+          )}
+        </div>
       </div>
     </div>
   );
