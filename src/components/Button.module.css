@@ -1,0 +1,20 @@
+.root {
+  background-color: transparent;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: monospace;
+
+  width: fit-content;
+  padding: 6px 10px;
+
+  display: inline-block;
+
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.root:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}

@@ -8,3 +8,6 @@
   font-size: x-large;
   text-transform: uppercase;
 }
+.errorMessage {
+  color: var(--error-color);
+}

@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import LinkListItem from '@/components/LinkListItem';
 import { useRouter } from 'next/router';
 import styles from './LinkList.module.css';
+import Button from './Button';
 type PropTypes = {
   links: Link[];
   updateLocalData: () => void;
@@ -40,28 +41,32 @@ const LinkList = (props: PropTypes): JSX.Element => {
   return (
     <div className={styles.root}>
       {/* Clear all button */}
-      <button onClick={clearLocalData}>Clear All</button>
+      <div className={styles.listActions}>
+        <Button onClick={clearLocalData}>Clear All</Button>
+      </div>
 
       {/* Links List*/}
-      {renderLinks.map((link) => (
-        <LinkListItem
-          updateLocalData={updateLocalData}
-          key={link.timestamp}
-          link={link}
-          links={links}
-        />
-      ))}
+      <div className={styles.list}>
+        {renderLinks.map((link) => (
+          <LinkListItem
+            updateLocalData={updateLocalData}
+            key={link.timestamp}
+            link={link}
+            links={links}
+          />
+        ))}
+      </div>
 
       {/* Pagination */}
 
       <div className={styles.pagination}>
         <div>
-          {parsedPageValue > 0 && <button onClick={handlePrev}>Prev</button>}
+          {parsedPageValue > 0 && <Button onClick={handlePrev}>Prev</Button>}
         </div>
-        <div>{parsedPageValue + 1}</div>
+        <h3>{parsedPageValue + 1}</h3>
         <div>
           {parsedPageValue < links.length / maxLinksPerPage - 1 && (
-            <button onClick={handleNext}>Next</button>
+            <Button onClick={handleNext}>Next</Button>
           )}
         </div>
       </div>

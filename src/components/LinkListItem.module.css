@@ -6,3 +6,8 @@
   /* box-shadow: 2px 2px 3px #0002; */
   border: 1px solid var(--text-color);
 }
+
+.actions {
+  display: flex;
+  justify-content: end;
+}

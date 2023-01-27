@@ -7,6 +7,7 @@ type PropTypes = {
   selectedCategories?: string[];
   handleSelect?: (val: string) => void;
   viewOnly?: boolean;
+  disableAdd?: boolean;
 };
 
 const CreateLinkModal = (props: PropTypes) => {
@@ -15,6 +16,7 @@ const CreateLinkModal = (props: PropTypes) => {
     selectedCategories = [],
     handleSelect = null,
     viewOnly,
+    disableAdd = false,
   } = props;
   const [showNewInput, setShowNewInput] = useState(false);
   const inputRef = useRef();
@@ -61,7 +63,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
       <div>
         {/* New Category input */}
-        {!viewOnly && !showNewInput && (
+        {!disableAdd && !viewOnly && !showNewInput && (
           <button className={styles.newInput} onClick={handleShowInput}>
             +
           </button>
@@ -73,14 +75,13 @@ const CreateLinkModal = (props: PropTypes) => {
               className={styles.newInput}
               ref={inputRef}
               name="newCategory"
+              placeholder={`NEW CATEGORY`}
               type={`string`}
-              // value={linkInputValue}
-              // onChange={}
               onBlur={handleBlur}
               autoFocus
             />
             <button className={styles.newInput} onClick={handleNewCategory}>
-              New Cat
+              ADD
             </button>
           </div>
         )}

@@ -4,6 +4,7 @@ import { isEmpty, isNotValidUrl } from '@/utils/validations';
 import ChipList from './ChipList';
 
 import styles from './CreateLinkForm.module.css';
+import Button from './Button';
 
 type PropTypes = {
   links: Link[];
@@ -66,13 +67,13 @@ const CreateLinkModal = (props: PropTypes) => {
 
     // Is it empty?
     if (isEmpty(linkInputValue)) {
-      displayErrorMessage(`Required Field`);
+      displayErrorMessage(`Dude, where's my link?`);
       return false;
     }
 
     // Is it a valid url format?
     if (isNotValidUrl(linkInputValue)) {
-      displayErrorMessage(`Not a Valid URL`);
+      displayErrorMessage(`Nah man, that link is whack...`);
       return false;
     }
 
@@ -112,9 +113,8 @@ const CreateLinkModal = (props: PropTypes) => {
         onChange={handleInputChange}
         autoFocus
       />
-      <p>{errorMessage}</p>
 
-      <hr />
+      <p className={styles.errorMessage}>{errorMessage}</p>
 
       <ChipList
         selectedCategories={categories}
@@ -122,9 +122,7 @@ const CreateLinkModal = (props: PropTypes) => {
         handleSelect={handleCategorySelect}
       />
 
-      <button className={styles.AddLinkButton} type="submit">
-        ADD NEW LINK
-      </button>
+      <Button type="submit">ADD NEW LINK</Button>
     </form>
   );
 };

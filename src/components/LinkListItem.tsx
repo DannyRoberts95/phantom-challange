@@ -1,4 +1,6 @@
+import { timeStamp } from 'console';
 import React from 'react';
+import Button from './Button';
 import ChipList from './ChipList';
 import styles from './LinkListItem.module.css';
 
@@ -21,16 +23,19 @@ const LinkListItem = ({
     updateLocalData(newData);
   };
 
-  const { url, categories = [] } = link;
+  const { url, categories = [], timestamp } = link;
+  console.log(link);
 
   return (
     <div className={styles.root} {...others}>
-      <h3 className={`text-lg`}>{url}</h3>
-      {/* <iframe src={url} height="200" width="300" title="Link Iframe"></iframe> */}
-
+      <p className={`text-sm`}>{timestamp}</p>
+      <a href={url} target={`_blank`} rel="noopener">
+        <p className={`text-lg`}>{url}</p>
+      </a>
       <ChipList categories={categories} viewOnly />
-
-      <button onClick={deleteLink}>Remove</button>
+      <div className={styles.actions}>
+        <Button onClick={deleteLink}>Delete</Button>
+      </div>
     </div>
   );
 };
