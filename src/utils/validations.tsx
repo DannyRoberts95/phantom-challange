@@ -8,8 +8,4 @@ const isNotValidUrl = (value: string): boolean => {
   }
 };
 
-const linkNonexsistant = async (url: string): boolean => {
-  return false;
-};
-
-export { isEmpty, isNotValidUrl, linkNonexsistant };
+export { isEmpty, isNotValidUrl };
