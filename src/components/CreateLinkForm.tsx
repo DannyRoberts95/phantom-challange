@@ -13,7 +13,7 @@ type PropTypes = {
 };
 
 const CreateLinkModal = (props: PropTypes) => {
-  const { links = [], updateLocalData } = props;
+  const { links = [], updateLocalData, clearLocalData } = props;
 
   const [linkInputValue, setLinkInputValue] = useState(``);
   const [categories, setCategories] = useState([]);
@@ -51,17 +51,19 @@ const CreateLinkModal = (props: PropTypes) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // //Comment to add filler list items
-    // setErrorMessage(``);
-    // setLinkInputValue(``);
-    // setCategories([]);
-    // const fakeLink: Link = {
-    //   url: `https://derp.com/${Math.random()}`,
-    //   timestamp: new Date().getTime(),
-    //   categories,
-    // };
-    // updateLocalData([fakeLink, ...links]);
-    // return;
+    //Comment to add filler list items
+    setErrorMessage(``);
+    setLinkInputValue(``);
+    setCategories([]);
+
+    const fakeDate = Math.floor(Math.random() * new Date().getTime());
+    const fakeLink: Link = {
+      url: `https://derp.com/${Math.random()}`,
+      timestamp: new Date(fakeDate).getTime(),
+      categories,
+    };
+    updateLocalData([fakeLink, ...links]);
+    return;
 
     //Validate the form...
 
@@ -122,7 +124,11 @@ const CreateLinkModal = (props: PropTypes) => {
         handleSelect={handleCategorySelect}
       />
 
-      <Button type="submit">ADD NEW LINK</Button>
+      {/* Clear all button */}
+      <div className={styles.actions}>
+        <Button type="submit">ADD NEW LINK</Button>
+        <Button onClick={clearLocalData}>Clear All</Button>
+      </div>
     </form>
   );
 };

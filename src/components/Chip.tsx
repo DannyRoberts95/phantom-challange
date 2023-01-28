@@ -18,7 +18,7 @@ const Chip = (props: PropTypes) => {
       }}
       {...others}
     >
-      {label}
+      #{label}
     </div>
   );
 };

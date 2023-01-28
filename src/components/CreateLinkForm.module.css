@@ -7,7 +7,13 @@
   padding: 1rem;
   font-size: x-large;
   text-transform: uppercase;
+  font-family: monospace;
 }
 .errorMessage {
   color: var(--error-color);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
 }

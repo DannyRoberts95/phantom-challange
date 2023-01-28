@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import React from 'react';
 import Button from './Button';
 import ChipList from './ChipList';
@@ -24,17 +23,16 @@ const LinkListItem = ({
   };
 
   const { url, categories = [], timestamp } = link;
-  console.log(link);
 
   return (
     <div className={styles.root} {...others}>
       <p className={`text-sm`}>{timestamp}</p>
       <a href={url} target={`_blank`} rel="noopener">
-        <p className={`text-lg`}>{url}</p>
+        <p className={styles.link}>{url}</p>
       </a>
       <ChipList categories={categories} viewOnly />
       <div className={styles.actions}>
-        <Button onClick={deleteLink}>Delete</Button>
+        <Button onClick={deleteLink}>X</Button>
       </div>
     </div>
   );

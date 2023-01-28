@@ -15,7 +15,7 @@ const maxLinksPerPage = 3;
 const LinkList = (props: PropTypes): JSX.Element => {
   const router = useRouter();
 
-  const { links = [], updateLocalData, clearLocalData } = props;
+  const { links = [], updateLocalData } = props;
   // Use Query Parameters from next router to control pagination
   // This allows a user to link directly to a specific page
   const {
@@ -23,6 +23,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
   } = router;
 
   const parsedPageValue = parseInt(page);
+  const pageCount = Math.floor(links.length / maxLinksPerPage);
 
   const handleNext = () => {
     router.push(`?page=${parsedPageValue + 1}`);
@@ -40,11 +41,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   return (
     <div className={styles.root}>
-      {/* Clear all button */}
-      <div className={styles.listActions}>
-        <Button onClick={clearLocalData}>Clear All</Button>
-      </div>
-
       {/* Links List*/}
       <div className={styles.list}>
         {renderLinks.map((link) => (
@@ -63,7 +59,11 @@ const LinkList = (props: PropTypes): JSX.Element => {
         <div>
           {parsedPageValue > 0 && <Button onClick={handlePrev}>Prev</Button>}
         </div>
-        <h3>{parsedPageValue + 1}</h3>
+
+        <h5>
+          {parsedPageValue + 1}/{pageCount + 1}
+        </h5>
+
         <div>
           {parsedPageValue < links.length / maxLinksPerPage - 1 && (
             <Button onClick={handleNext}>Next</Button>

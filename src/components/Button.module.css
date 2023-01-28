@@ -1,8 +1,10 @@
 .root {
-  background-color: transparent;
+  background-color: var(--text-color);
+  color: var(--bg-color);
   border: 1px solid var(--text-color);
-  color: var(--text-color);
+  /* color: var(--text-color); */
   font-family: monospace;
+  cursor: pointer;
 
   width: fit-content;
   padding: 6px 10px;
