@@ -1,4 +1,4 @@
-.root {
+.primary {
   background-color: var(--text-color);
   color: var(--bg-color);
   border: 1px solid var(--text-color);
@@ -16,7 +16,30 @@
   font-size: 1rem;
 }
 
-.root:hover {
+.primary:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.secondary {
+  background-color: var(--bg-color);
+  color: var(--bg-color);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: monospace;
+  cursor: pointer;
+
+  width: fit-content;
+  padding: 6px 10px;
+
+  display: inline-block;
+
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.secondary:hover {
   background-color: var(--text-color);
   color: var(--bg-color);
 }

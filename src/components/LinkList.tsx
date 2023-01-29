@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import LinkListItem from '@/components/LinkListItem';
+import ChipList from '@/components/ChipList';
 import { useRouter } from 'next/router';
 import styles from './LinkList.module.css';
 import Button from './Button';
@@ -10,7 +11,7 @@ type PropTypes = {
 };
 
 //Change to 20
-const maxLinksPerPage = 3;
+const maxLinksPerPage = 20;
 
 const LinkList = (props: PropTypes): JSX.Element => {
   const router = useRouter();
@@ -19,11 +20,12 @@ const LinkList = (props: PropTypes): JSX.Element => {
   // Use Query Parameters from next router to control pagination
   // This allows a user to link directly to a specific page
   const {
-    query: { page = `0` },
+    query: { page = `0`, category },
   } = router;
 
-  const parsedPageValue = parseInt(page);
-  const pageCount = Math.floor(links.length / maxLinksPerPage);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    category ? [category] : [],
+  );
 
   const handleNext = () => {
     router.push(`?page=${parsedPageValue + 1}`);
@@ -32,19 +34,66 @@ const LinkList = (props: PropTypes): JSX.Element => {
     router.push(`?page=${parsedPageValue - 1}`);
   };
 
+  const handleCategorySelect = (val: string) => {
+    router.push(`/`, { query: { page: `0` } });
+    if (selectedCategories.includes(val)) {
+      const filtered = selectedCategories.filter((cat) => cat != val);
+      setSelectedCategories(filtered);
+    } else {
+      setSelectedCategories([...selectedCategories, val]);
+    }
+  };
+
+  //compute all tag options from a combo of existing tags in localstorage & any just added by the user
+  const computeAvailableCategories = () => {
+    const cats: string[] = [];
+    links.forEach((link) => {
+      if (link.categories) {
+        link.categories.forEach((cat) => cats.push(cat));
+      } else return;
+    });
+    return [...new Set([...cats])];
+  };
+
+  const parsedPageValue = parseInt(page);
+
   //Memoise the rendering of the links to prevent unnessecary heavy re-renders
   const renderLinks = useMemo(() => {
+    let arr = links;
+    //Filter the links by category
+    // for each link
+    arr = arr.filter((link) => {
+      //grab its categories
+      const { categories } = link;
+      //short circut filter if there are no category selections
+      if (selectedCategories.length === 0) return true;
+      // check if at least one of the categories exists in the selectedCategories
+      return categories.some((cat) => selectedCategories.includes(cat));
+    });
+
+    //Pull links for this page
     const begin = parsedPageValue * maxLinksPerPage;
     const end = begin + maxLinksPerPage;
-    return links.slice(begin, end);
-  }, [parsedPageValue, links]);
+    arr = arr.slice(begin, end);
+    return arr;
+  }, [parsedPageValue, links, selectedCategories]);
+
+  const pageCount = Math.floor(renderLinks.length / maxLinksPerPage);
 
   return (
     <div className={styles.root}>
+      {/* Categories */}
+      <ChipList
+        categories={computeAvailableCategories()}
+        selectedCategories={selectedCategories}
+        disableAdd
+        handleSelect={handleCategorySelect}
+      />
       {/* Links List*/}
       <div className={styles.list}>
-        {renderLinks.map((link) => (
+        {renderLinks.map((link, i) => (
           <LinkListItem
+            number={i}
             updateLocalData={updateLocalData}
             key={link.timestamp}
             link={link}
@@ -65,7 +114,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
         </h5>
 
         <div>
-          {parsedPageValue < links.length / maxLinksPerPage - 1 && (
+          {parsedPageValue < pageCount && parsedPageValue != pageCount && (
             <Button onClick={handleNext}>Next</Button>
           )}
         </div>

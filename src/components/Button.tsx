@@ -6,7 +6,13 @@ type PropTypes = {
 };
 
 const Button = (props: PropTypes) => {
-  return <button className={styles.root} {...props} />;
+  const { variant } = props;
+  switch (variant) {
+    case `primary`:
+      return <button className={styles.primary} {...props} />;
+    default:
+      return <button className={styles.secondary} {...props} />;
+  }
 };
 
 export default Button;

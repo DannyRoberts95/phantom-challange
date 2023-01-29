@@ -126,7 +126,9 @@ const CreateLinkModal = (props: PropTypes) => {
 
       {/* Clear all button */}
       <div className={styles.actions}>
-        <Button type="submit">ADD NEW LINK</Button>
+        <Button variant="primary" type="submit">
+          ADD NEW LINK
+        </Button>
         <Button onClick={clearLocalData}>Clear All</Button>
       </div>
     </form>

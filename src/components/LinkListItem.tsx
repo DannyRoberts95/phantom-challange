@@ -7,12 +7,14 @@ type PropTypes = {
   link: Link;
   updateLocalData: () => void;
   links: Link[];
+  number: number | string;
 };
 
 const LinkListItem = ({
   link,
   links,
   updateLocalData,
+  number,
   ...others
 }: PropTypes) => {
   const deleteLink = () => {
@@ -34,6 +36,7 @@ const LinkListItem = ({
       <div className={styles.actions}>
         <Button onClick={deleteLink}>X</Button>
       </div>
+      <p className={`text-base`}>{`NUM://${number}`}</p>
     </div>
   );
 };

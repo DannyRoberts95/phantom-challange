@@ -1,8 +1,8 @@
 :root {
   --primary-color: rgb(0, 255, 110);
   --primary-color-dark: rgb(0, 173, 75);
-  --bg-color: rgb(255, 255, 255);
-  --text-color: rgb(33, 33, 33);
+  --bg-color: rgb(255, 253, 248);
+  --text-color: rgb(20, 18, 34);
   --error-color: rgb(203, 71, 0);
 }
 

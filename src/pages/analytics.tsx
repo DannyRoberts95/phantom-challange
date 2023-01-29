@@ -22,19 +22,10 @@ export default function Index({
         clearLocalData={clearLocalData}
       />
 
-      {/* <div>
+      <div>
         <TimeLine data={data} />
-
-        <div style={{ height: 400, flexBasis: 1 }}>
-          <PieChart data={data} />
-        </div>
-      </div> */}
-
-      <LinkList
-        links={data}
-        updateLocalData={updateLocalData}
-        clearLocalData={clearLocalData}
-      />
+        <PieChart data={data} />
+      </div>
     </main>
   );
 }

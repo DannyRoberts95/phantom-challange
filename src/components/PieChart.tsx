@@ -1,35 +1,59 @@
-import React from 'react';
-import { PieChart, Pie, ResponsiveContainer, Tooltip } from 'recharts';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import { PieChart, Pie, ResponsiveContainer } from 'recharts';
+import classes from './PieChart.module.css';
 
-const data02 = [
-  { name: `A1`, value: 100 },
-  { name: `A2`, value: 300 },
-  { name: `B1`, value: 100 },
-  { name: `B2`, value: 80 },
-  { name: `B3`, value: 40 },
-  { name: `B4`, value: 30 },
-  { name: `B5`, value: 50 },
-  { name: `C1`, value: 100 },
-  { name: `C2`, value: 200 },
-  { name: `D1`, value: 150 },
-  { name: `D2`, value: 50 },
-];
+type PropTypes = {
+  data: Link[];
+};
 
-export default function MyPieChart() {
+export default function MyPieChart(props: PropTypes) {
+  const router = useRouter();
+
+  const { data } = props;
+
+  const cleanedData = useMemo(() => {
+    const allCats: string[] = [];
+    data.forEach((item) => item.categories.forEach((cat) => allCats.push(cat)));
+    const deduped = [...new Set(allCats)];
+    const tallied = deduped.map((item) => {
+      const key = item;
+      let tally = 0;
+      allCats.forEach((cat) => {
+        if (cat == key) {
+          tally++;
+        }
+      });
+      return { key, tally };
+    });
+    return tallied;
+  }, [data]);
+
+  const handleClick = ({ key }) => {
+    router.push(`/`, { query: { category: key } });
+  };
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart width={450} height={450}>
-        <Pie
-          data={data02}
-          dataKey="value"
-          cx="50%"
-          cy="50%"
-          innerRadius={70}
-          outerRadius={90}
-          fill="#000"
-        />
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
+    <div className={classes.root}>
+      <h2 className={classes.chartTitle}>Categories</h2>
+      <div className={classes.chartContainer}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart width={450} height={450}>
+            <Pie
+              label={({ key, tally }) => `${key}:${tally}`}
+              paddingAngle={5}
+              data={cleanedData}
+              dataKey={`tally`}
+              cx="50%"
+              cy="50%"
+              innerRadius={80}
+              outerRadius={100}
+              fill="rgb(20, 18, 34)"
+              onClick={handleClick}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import {
   ComposedChart,
@@ -8,17 +9,19 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import styles from './TimeLine.module.css';
+import ChipList from './ChipList';
+
+import classes from './TimeLine.module.css';
+
 type PropTypes = {
   data: Link[];
 };
 
-const formatDate = (value) =>
-  `${new Date(value).getDate()}/${new Date(value).getUTCMonth()}/${new Date(
-    value,
-  ).getFullYear()}`;
+import formatDate from '@/utils/formatDate';
 
 export default function TimeLine(props: PropTypes) {
   const { data } = props;
+  const router = useRouter();
 
   const cleanedData = useMemo(
     () =>
@@ -27,7 +30,9 @@ export default function TimeLine(props: PropTypes) {
           ...item,
           time: new Date(item.timestamp).getHours(),
         }))
-        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)),
+        .sort(
+          (a: Link, b: Link) => new Date(b.timestamp) - new Date(a.timestamp),
+        ),
     [data],
   );
 
@@ -40,55 +45,55 @@ export default function TimeLine(props: PropTypes) {
             label,
           ).getHours()}:00`}</p>
           {payload.map((item) => (
-            <p key={item.payload.url}>{item.payload.url}</p>
+            <>
+              <p key={item.payload.url}>{item.payload.url}</p>
+              <ChipList categories={item.payload.categories} viewOnly />
+            </>
           ))}
-          {console.log(payload)}
         </div>
       );
     }
-
     return null;
   };
 
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <ComposedChart
-        width={500}
-        height={400}
-        data={cleanedData}
-        margin={{
-          top: 20,
-          right: 60,
-          bottom: 20,
-          left: 40,
-        }}
-      >
-        <Tooltip content={<CustomTooltip />} />
+  const handleClick = ({ url }: { url: string }) => {
+    router.push(url);
+    console.log(url);
+  };
 
-        <XAxis
-          dataKey="timestamp"
-          type="number"
-          domain={[`0`, `24`]}
-          allowDataOverflow={false}
-          tickFormatter={formatDate}
-          tickLine={false}
-        />
-        <YAxis
-          allowDataOverflow={false}
-          domain={[`dataMin`, `dataMax`]}
-          type="number"
-          tickLine={false}
-          // tickCount={8}
-          tickFormatter={(value) => `${value}:00`}
-        />
-        <Scatter
-          // animationEasing="ease-in-out"
-          name="links"
-          dataKey="time"
-          fill="black"
-          line={{ stroke: `#0001`, strokeWidth: 1 }}
-        />
-      </ComposedChart>
-    </ResponsiveContainer>
+  return (
+    <div className={classes.root}>
+      <h2 className={classes.chartTitle}>Posts Overtime</h2>
+
+      <div className={classes.chartContainer}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart width={500} height={400} data={cleanedData}>
+            <Tooltip content={<CustomTooltip />} />
+
+            <XAxis
+              dataKey="timestamp"
+              type="number"
+              domain={[0, 24]}
+              tickFormatter={formatDate}
+              tickLine={false}
+            />
+            <YAxis
+              allowDataOverflow={false}
+              domain={[`dataMin`, `dataMax`]}
+              type="number"
+              tickLine={false}
+              tickFormatter={(value: string) => `${value}:00`}
+            />
+            <Scatter
+              onClick={handleClick}
+              name="links"
+              dataKey="time"
+              fill="black"
+              line={{ stroke: `rgba(20, 18, 34, 0.1)`, strokeWidth: 1 }}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 }
