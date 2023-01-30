@@ -15,20 +15,12 @@ export default function Index({
   clearLocalData,
 }: PropTypes) {
   return (
-    <main>
-      {/* <div>
-        <TimeLine data={data} />
-
-        <div style={{ height: 400, flexBasis: 1 }}>
-          <PieChart data={data} />
-        </div>
-      </div> */}
-
+    <div>
       <LinkList
         links={data}
         updateLocalData={updateLocalData}
         clearLocalData={clearLocalData}
       />
-    </main>
+    </div>
   );
 }

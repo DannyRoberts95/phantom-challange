@@ -5,7 +5,7 @@ import Header from './Header';
 type PropTypes = {
   children: React.ReactNode;
   data: Link[];
-  updateLocalData: () => void;
+  updateLocalData: (newData: Link[]) => void;
   clearLocalData: () => void;
 };
 

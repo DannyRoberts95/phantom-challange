@@ -23,11 +23,9 @@ const LinkList = (props: PropTypes): JSX.Element => {
   const {
     query: { page = `0`, category },
   } = router;
-
   const [selectedCategories, setSelectedCategories] = useState(
     category ? [category] : [],
   );
-
   const [linkCount, setLinkCount] = useState(0);
 
   const handleNext = () => {
@@ -39,7 +37,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   const handleCategorySelect = (val: string) => {
     router.push(`/`, { query: { page: `0` } });
-
     if (selectedCategories.includes(val)) {
       const filtered = selectedCategories.filter((cat) => cat != val);
       setSelectedCategories(filtered);
@@ -94,13 +91,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
   }, [parsedPageValue, links, selectedCategories]);
 
   const pageCount = Math.ceil(linkCount / maxLinksPerPage);
-
-  // console.clear();
-  // console.log(`pageCountNOCiel`, linkCount / maxLinksPerPage);
-  // console.log(`pageCount`, pageCount);
-  // console.log(`page`, parsedPageValue);
-  // console.log(`link counts`, links.length);
-
   const arr = new Array(pageCount);
   for (let i = 0; i < arr.length; i++) {
     arr[i] = null;
@@ -144,7 +134,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
               {parsedPageValue === i ? <b>{i + 1}</b> : i + 1}
             </Link>
           ))}
-          {/* {parsedPageValue + 1}/{pageCount} */}
         </div>
 
         <div>

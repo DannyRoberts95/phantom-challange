@@ -1,6 +1,4 @@
 import PieChart from '@/components/PieChart';
-import CreateLinkSection from '@/components/CreateLinkSection';
-import LinkList from '@/components/LinkList';
 import TimeLine from '@/components/TimeLine';
 
 type PropTypes = {
@@ -9,15 +7,11 @@ type PropTypes = {
   clearLocalData: () => void;
 };
 
-export default function Index({
-  data,
-  updateLocalData,
-  clearLocalData,
-}: PropTypes) {
+export default function Index({ data }: PropTypes) {
   return (
-    <main>
+    <div>
       <TimeLine data={data} />
       <PieChart data={data} />
-    </main>
+    </div>
   );
 }
