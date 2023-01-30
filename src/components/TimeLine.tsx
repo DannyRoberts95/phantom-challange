@@ -7,20 +7,27 @@ import {
   Tooltip,
   Scatter,
   ResponsiveContainer,
+  TooltipProps,
 } from 'recharts';
+
+import {
+  ValueType,
+  NameType,
+} from 'recharts/src/component/DefaultTooltipContent';
+
 import styles from './TimeLine.module.css';
 import ChipList from './ChipList';
 
 import classes from './TimeLine.module.css';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
-type PropTypes = {
+type ChartPropTypes = {
   data: Link[];
 };
 
 import formatDate from '@/utils/formatDate';
 
-export default function TimeLine(props: PropTypes) {
+export default function TimeLine(props: ChartPropTypes) {
   const { data } = props;
   const router = useRouter();
   const isXs = useMediaQuery(`xs`);
@@ -36,15 +43,18 @@ export default function TimeLine(props: PropTypes) {
     [data],
   );
 
-  const CustomTooltip = (props) => {
-    const { active, payload, label } = props;
+  const CustomTooltip = ({
+    active,
+    payload,
+    label,
+  }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
       return (
         <div className={styles.tooltip}>
           <p className="label">{`${formatDate(label)} @ ${new Date(
             label,
           ).getHours()}:00`}</p>
-          {payload.map((item) => (
+          {payload.map((item: any) => (
             <span key={item.payload.url}>
               <b>
                 <p>{item.payload.url}</p>

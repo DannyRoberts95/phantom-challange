@@ -1,31 +1,48 @@
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  ResponsiveContainer,
+  Cell,
+  Tooltip,
+  TooltipProps,
+} from 'recharts';
 import classes from './PieChart.module.css';
 
-type PropTypes = {
+import {
+  ValueType,
+  NameType,
+} from 'recharts/src/component/DefaultTooltipContent';
+
+type PiePropTypes = {
   data: Link[];
 };
 
-const CustomTooltip = (props) => {
-  const { active, payload } = props;
+const CustomTooltip = ({
+  active,
+  payload,
+}: TooltipProps<ValueType, NameType>) => {
   if (active && payload && payload.length) {
     return (
       <div className={classes.tooltip}>
-        {payload.map((item) => (
-          <>
-            <p>{`${item.payload.key}:${item.payload.tally}`}</p>
-            <p className="text-sm">View Links</p>
-          </>
-        ))}
+        {payload.map((item: any) => {
+          const { payload } = item;
+          return (
+            <>
+              <p>{`${payload.key}:${payload.tally}`}</p>
+              <p className="text-sm">View Links</p>
+            </>
+          );
+        })}
       </div>
     );
   }
   return null;
 };
 
-export default function MyPieChart(props: PropTypes) {
+export default function MyPieChart(props: PiePropTypes) {
   const router = useRouter();
 
   const isMd = useMediaQuery(`md`);
@@ -57,7 +74,7 @@ export default function MyPieChart(props: PropTypes) {
     return [...tallied, uncategorised];
   }, [data]);
 
-  const handleClick = ({ key }) => {
+  const handleClick = ({ key }: { key: string }) => {
     router.push(`/?category=${`${key}`.toLowerCase()}`);
   };
 
