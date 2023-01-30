@@ -4,6 +4,7 @@ import ChipList from '@/components/ChipList';
 import { useRouter } from 'next/router';
 import styles from './LinkList.module.css';
 import Button from './Button';
+import Link from 'next/link';
 type PropTypes = {
   links: Link[];
   updateLocalData: () => void;
@@ -94,6 +95,17 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   const pageCount = Math.ceil(linkCount / maxLinksPerPage);
 
+  // console.clear();
+  // console.log(`pageCountNOCiel`, linkCount / maxLinksPerPage);
+  // console.log(`pageCount`, pageCount);
+  // console.log(`page`, parsedPageValue);
+  // console.log(`link counts`, links.length);
+
+  const arr = new Array(pageCount);
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = null;
+  }
+
   return (
     <div className={styles.root}>
       <p className="text-base">
@@ -126,12 +138,17 @@ const LinkList = (props: PropTypes): JSX.Element => {
           {parsedPageValue > 0 && <Button onClick={handlePrev}>Prev</Button>}
         </div>
 
-        <h5>
-          {parsedPageValue + 1}/{pageCount + 1}
-        </h5>
+        <div className={styles.pages}>
+          {arr.map((item, i) => (
+            <Link key={i} className={styles.pageLink} href={`/?page=${i}`}>
+              {parsedPageValue === i ? <b>{i + 1}</b> : i + 1}
+            </Link>
+          ))}
+          {/* {parsedPageValue + 1}/{pageCount} */}
+        </div>
 
         <div>
-          {parsedPageValue < pageCount && (
+          {!(parsedPageValue + 1 >= pageCount) && (
             <Button onClick={handleNext}>Next</Button>
           )}
         </div>

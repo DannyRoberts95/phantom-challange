@@ -13,6 +13,14 @@
 
   align-items: center;
 }
+.page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.pageLink {
+  padding: 0 0.5rem;
+}
 .listActions {
   width: 100%;
   display: flex;
