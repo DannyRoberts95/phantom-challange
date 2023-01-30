@@ -1,3 +1,4 @@
+import formatDate from '@/utils/formatDate';
 import React from 'react';
 import Button from './Button';
 import ChipList from './ChipList';
@@ -28,7 +29,7 @@ const LinkListItem = ({
 
   return (
     <div className={styles.root} {...others}>
-      <p className={`text-sm`}>{timestamp}</p>
+      <p className={`text-sm`}>{formatDate(new Date(timestamp))}</p>
       <a href={url} target={`_blank`} rel="noopener">
         <p className={styles.link}>{url}</p>
       </a>

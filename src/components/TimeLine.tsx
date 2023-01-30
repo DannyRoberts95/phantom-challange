@@ -12,6 +12,7 @@ import styles from './TimeLine.module.css';
 import ChipList from './ChipList';
 
 import classes from './TimeLine.module.css';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 type PropTypes = {
   data: Link[];
@@ -22,6 +23,7 @@ import formatDate from '@/utils/formatDate';
 export default function TimeLine(props: PropTypes) {
   const { data } = props;
   const router = useRouter();
+  const isXs = useMediaQuery(`xs`);
 
   const cleanedData = useMemo(
     () =>
@@ -45,10 +47,10 @@ export default function TimeLine(props: PropTypes) {
             label,
           ).getHours()}:00`}</p>
           {payload.map((item) => (
-            <>
-              <p key={item.payload.url}>{item.payload.url}</p>
+            <span key={item.payload.url}>
+              <p>{item.payload.url}</p>
               <ChipList categories={item.payload.categories} viewOnly />
-            </>
+            </span>
           ))}
         </div>
       );
@@ -58,16 +60,15 @@ export default function TimeLine(props: PropTypes) {
 
   const handleClick = ({ url }: { url: string }) => {
     router.push(url);
-    console.log(url);
   };
 
   return (
     <div className={classes.root}>
-      <h2 className={classes.chartTitle}>Posts Overtime</h2>
+      <h2 className={`text-xl`}>Posts Overtime</h2>
 
       <div className={classes.chartContainer}>
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart width={500} height={400} data={cleanedData}>
+          <ComposedChart height={400} data={cleanedData}>
             <Tooltip content={<CustomTooltip />} />
 
             <XAxis
@@ -83,6 +84,7 @@ export default function TimeLine(props: PropTypes) {
               type="number"
               tickLine={false}
               tickFormatter={(value: string) => `${value}:00`}
+              width={isXs ? 1 : 60}
             />
             <Scatter
               onClick={handleClick}

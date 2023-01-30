@@ -23,7 +23,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
   const handleNewCategory = (e) => {
     e.preventDefault();
-    const val = inputRef.current.value;
+    const val = `${inputRef.current.value}`.toLowerCase().replaceAll(` `, ``);
     if (val) {
       handleSelect(val);
       setShowNewInput(false);
@@ -49,18 +49,6 @@ const CreateLinkModal = (props: PropTypes) => {
 
   return (
     <div className={styles.root}>
-      {/* Select a category */}
-
-      {categories.map((cat) => (
-        <Chip
-          key={cat}
-          label={cat}
-          onClick={handleSelect ? () => handleSelect(cat) : null}
-          selected={selectedCategories.includes(cat)}
-          viewOnly={viewOnly}
-        />
-      ))}
-
       <div>
         {/* New Category input */}
         {!disableAdd && !viewOnly && !showNewInput && (
@@ -86,6 +74,17 @@ const CreateLinkModal = (props: PropTypes) => {
           </div>
         )}
       </div>
+
+      {/* Select a category */}
+      {categories.map((cat) => (
+        <Chip
+          key={cat}
+          label={cat}
+          onClick={handleSelect ? () => handleSelect(cat) : null}
+          selected={selectedCategories.includes(cat)}
+          viewOnly={viewOnly}
+        />
+      ))}
     </div>
   );
 };

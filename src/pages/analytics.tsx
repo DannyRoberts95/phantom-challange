@@ -16,16 +16,8 @@ export default function Index({
 }: PropTypes) {
   return (
     <main>
-      <CreateLinkSection
-        links={data}
-        updateLocalData={updateLocalData}
-        clearLocalData={clearLocalData}
-      />
-
-      <div>
-        <TimeLine data={data} />
-        <PieChart data={data} />
-      </div>
+      <TimeLine data={data} />
+      <PieChart data={data} />
     </main>
   );
 }

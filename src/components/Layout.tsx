@@ -1,9 +1,20 @@
 import Head from 'next/head';
 import React from 'react';
+import CreateLinkSection from '@/components/CreateLinkSection';
+import Header from './Header';
+type PropTypes = {
+  children: React.ReactNode;
+  data: Link[];
+  updateLocalData: () => void;
+  clearLocalData: () => void;
+};
 
-type PropTypes = { children: React.ReactNode };
-
-export default function Home({ children }: PropTypes) {
+export default function Home({
+  children,
+  data,
+  updateLocalData,
+  clearLocalData,
+}: PropTypes) {
   return (
     <div>
       <Head>
@@ -11,6 +22,14 @@ export default function Home({ children }: PropTypes) {
         <meta name="description" content="A slick little link storage app!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Header />
+
+      <CreateLinkSection
+        links={data}
+        updateLocalData={updateLocalData}
+        clearLocalData={clearLocalData}
+      />
 
       {children}
     </div>

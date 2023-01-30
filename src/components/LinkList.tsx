@@ -23,9 +23,11 @@ const LinkList = (props: PropTypes): JSX.Element => {
     query: { page = `0`, category },
   } = router;
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+  const [selectedCategories, setSelectedCategories] = useState(
     category ? [category] : [],
   );
+
+  const [linkCount, setLinkCount] = useState(0);
 
   const handleNext = () => {
     router.push(`?page=${parsedPageValue + 1}`);
@@ -36,6 +38,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   const handleCategorySelect = (val: string) => {
     router.push(`/`, { query: { page: `0` } });
+
     if (selectedCategories.includes(val)) {
       const filtered = selectedCategories.filter((cat) => cat != val);
       setSelectedCategories(filtered);
@@ -52,7 +55,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
         link.categories.forEach((cat) => cats.push(cat));
       } else return;
     });
-    return [...new Set([...cats])];
+    return [...new Set([...cats, `uncategorised`])];
   };
 
   const parsedPageValue = parseInt(page);
@@ -68,8 +71,19 @@ const LinkList = (props: PropTypes): JSX.Element => {
       //short circut filter if there are no category selections
       if (selectedCategories.length === 0) return true;
       // check if at least one of the categories exists in the selectedCategories
-      return categories.some((cat) => selectedCategories.includes(cat));
+      const containsCategory = categories.some((cat) =>
+        selectedCategories.includes(cat),
+      );
+      //check if the link is uncategorised
+      const uncategorised = !categories || categories.length == 0;
+
+      if (selectedCategories.includes(`uncategorised`))
+        return containsCategory || uncategorised;
+
+      return containsCategory;
     });
+
+    setLinkCount(arr.length);
 
     //Pull links for this page
     const begin = parsedPageValue * maxLinksPerPage;
@@ -82,6 +96,10 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   return (
     <div className={styles.root}>
+      <p className="text-base">
+        {linkCount} Link(s){` `}
+        {selectedCategories.length > 0 ? `${selectedCategories.join(`/`)}` : ``}
+      </p>
       {/* Categories */}
       <ChipList
         categories={computeAvailableCategories()}
@@ -110,7 +128,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
         </div>
 
         <h5>
-          {parsedPageValue + 1}/{pageCount + 1}
+          {parsedPageValue + 1}/{pageCount}
         </h5>
 
         <div>

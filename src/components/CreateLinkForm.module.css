@@ -8,6 +8,8 @@
   font-size: x-large;
   text-transform: uppercase;
   font-family: monospace;
+  background-color: transparent;
+  border: 2px solid var(--text-color);
 }
 .errorMessage {
   color: var(--error-color);

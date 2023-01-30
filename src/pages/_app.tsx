@@ -26,11 +26,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     setData(localData ? JSON.parse(localData) : []);
   }, []);
 
-  const props = { data, updateLocalData, clearLocalData, ...pageProps };
+  const commonProps = { data, updateLocalData, clearLocalData };
+  const componentProps = { ...commonProps, ...pageProps };
 
   return (
-    <Layout>
-      <Component {...props} />
+    <Layout {...commonProps}>
+      <Component {...componentProps} />
     </Layout>
   );
 }
