@@ -10,7 +10,7 @@ const Header = () => {
         <Link href="/">
           <Image
             src={`/phantom.png`}
-            width={28}
+            width={45}
             height={45}
             alt="A spooky ghost"
           />

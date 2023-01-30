@@ -3,6 +3,11 @@ import Layout from '@/components/Layout';
 import { useEffect, useState } from 'react';
 import '@/styles/globals.css';
 
+import { Oswald } from '@next/font/google';
+
+// eslint-disable-next-line @typescript-eslint/quotes
+const font = Oswald({ subsets: ['latin'] });
+
 const DATA_KEY = `localLinks`;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -30,8 +35,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const componentProps = { ...commonProps, ...pageProps };
 
   return (
-    <Layout {...commonProps}>
-      <Component {...componentProps} />
-    </Layout>
+    <main>
+      <style jsx global>{`
+        html {
+          font-family: ${font.style.fontFamily};
+        }
+      `}</style>
+      <Layout {...commonProps}>
+        <Component {...componentProps} />
+      </Layout>
+    </main>
   );
 }

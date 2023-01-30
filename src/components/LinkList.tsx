@@ -128,7 +128,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
         </div>
 
         <h5>
-          {parsedPageValue + 1}/{pageCount}
+          {parsedPageValue + 1}/{pageCount + 1}
         </h5>
 
         <div>

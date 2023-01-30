@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@next/font": "13.1.6",
     "is-reachable": "5.2.1",
     "next": "13.1.4",
     "react": "18.2.0",

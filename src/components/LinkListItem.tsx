@@ -37,7 +37,6 @@ const LinkListItem = ({
       <div className={styles.actions}>
         <Button onClick={deleteLink}>X</Button>
       </div>
-      <p className={`text-base`}>{`NUM://${number}`}</p>
     </div>
   );
 };
