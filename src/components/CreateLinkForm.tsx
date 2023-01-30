@@ -8,7 +8,7 @@ import Button from './Button';
 
 type PropTypes = {
   links: Link[];
-  updateLocalData: () => void;
+  updateLocalData: (newData: Link[]) => void;
   clearLocalData: () => void;
 };
 
@@ -16,14 +16,14 @@ const CreateLinkModal = (props: PropTypes) => {
   const { links = [], updateLocalData, clearLocalData } = props;
 
   const [linkInputValue, setLinkInputValue] = useState(``);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState(``);
 
   const displayErrorMessage = (msg: string) => {
     setErrorMessage(msg);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setErrorMessage(``);
     setLinkInputValue(value.trim());
@@ -49,22 +49,24 @@ const CreateLinkModal = (props: PropTypes) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleFakeSubmit = (): void => {
+    //Comment to add filler list items
+    setErrorMessage(``);
+    setLinkInputValue(``);
+    setCategories([]);
+
+    const fakeDate = Math.floor(Math.random() * new Date().getTime());
+    const fakeLink: Link = {
+      url: `https://derp.com/${Math.random()}`,
+      timestamp: new Date(fakeDate).getTime(),
+      categories,
+    };
+    updateLocalData([fakeLink, ...links]);
+    return;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // //Comment to add filler list items
-    // setErrorMessage(``);
-    // setLinkInputValue(``);
-    // setCategories([]);
-
-    // const fakeDate = Math.floor(Math.random() * new Date().getTime());
-    // const fakeLink: Link = {
-    //   url: `https://derp.com/${Math.random()}`,
-    //   timestamp: new Date(fakeDate).getTime(),
-    //   categories,
-    // };
-    // updateLocalData([fakeLink, ...links]);
-    // return;
 
     //Validate the form...
 
@@ -127,9 +129,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
       {/* Clear all button */}
       <div className={styles.actions}>
-        <Button variant="primary" type="submit">
-          ADD NEW LINK
-        </Button>
+        <Button variant="primary">ADD NEW LINK</Button>
         <Button onClick={clearLocalData}>Delete All</Button>
       </div>
     </form>

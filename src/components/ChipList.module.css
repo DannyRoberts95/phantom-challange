@@ -10,7 +10,7 @@
 }
 
 .newInput {
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
   width: fit-content;
   padding: 4px 6px;
   background-color: var(--bg-color);

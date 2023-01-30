@@ -5,13 +5,13 @@ import { useRouter } from 'next/router';
 import styles from './LinkList.module.css';
 import Button from './Button';
 import Link from 'next/link';
+import { useEffect } from 'react';
 type PropTypes = {
   links: Link[];
-  updateLocalData: () => void;
+  updateLocalData: (newData: Link[]) => void;
   clearLocalData: () => void;
 };
 
-//Change to 20
 const maxLinksPerPage = 20;
 
 const LinkList = (props: PropTypes): JSX.Element => {
@@ -22,11 +22,16 @@ const LinkList = (props: PropTypes): JSX.Element => {
   // This allows a user to link directly to a specific page
   const {
     query: { page = `0`, category },
-  } = router;
-  const [selectedCategories, setSelectedCategories] = useState(
-    category ? [category] : [],
-  );
+  }: { query: { page?: string; category?: string } } = router;
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [linkCount, setLinkCount] = useState(0);
+
+  useEffect(() => {
+    category && setSelectedCategories([category]);
+  }, [category]);
+
+  const parsedPageValue = parseInt(page);
 
   const handleNext = () => {
     router.push(`?page=${parsedPageValue + 1}`);
@@ -55,8 +60,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
     });
     return [...new Set([...cats, `uncategorised`])];
   };
-
-  const parsedPageValue = parseInt(page);
 
   //Memoise the rendering of the links to prevent unnessecary heavy re-renders
   const renderLinks = useMemo(() => {
@@ -122,7 +125,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
       </div>
 
       {/* Pagination */}
-
       <div className={styles.pagination}>
         <div>
           {parsedPageValue > 0 && <Button onClick={handlePrev}>Prev</Button>}

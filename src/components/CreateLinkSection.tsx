@@ -5,7 +5,6 @@ import styles from './CreateLinkSection.module.css';
 type PropTypes = {
   links: Link[];
   updateLocalData: (newData: Link[]) => void;
-  updateLocalData: () => void;
   clearLocalData: () => void;
 };
 

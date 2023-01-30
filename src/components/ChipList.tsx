@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { SyntheticEvent, useRef, useState } from 'react';
 import Chip from './Chip';
 import styles from './ChipList.module.css';
 
@@ -14,38 +14,34 @@ const CreateLinkModal = (props: PropTypes) => {
   const {
     categories = [],
     selectedCategories = [],
-    handleSelect = null,
-    viewOnly,
+    handleSelect,
+    viewOnly = false,
     disableAdd = false,
   } = props;
   const [showNewInput, setShowNewInput] = useState(false);
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleNewCategory = (e) => {
+  const handleNewCategory = (e: SyntheticEvent) => {
     e.preventDefault();
-    const val = `${inputRef.current.value}`.toLowerCase().replaceAll(` `, ``);
-    if (val) {
-      handleSelect(val);
+    const val = `${inputRef?.current?.value}`.toLowerCase().replaceAll(` `, ``);
+    if (val && inputRef?.current) {
+      handleSelect && handleSelect(val);
       setShowNewInput(false);
       inputRef.current.value = ``;
     }
   };
 
   const handleBlur = () => {
-    const val = inputRef.current.value;
+    const val = inputRef?.current?.value;
     if (!val) {
       setShowNewInput(false);
     }
   };
 
-  const handleShowInput = (e) => {
+  const handleShowInput = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowNewInput(!showNewInput);
   };
-
-  // const handleCategorySelect = (val: string) => {
-
-  // };
 
   return (
     <div className={styles.root}>
@@ -80,7 +76,7 @@ const CreateLinkModal = (props: PropTypes) => {
         <Chip
           key={cat}
           label={cat}
-          onClick={handleSelect ? () => handleSelect(cat) : null}
+          onClick={() => handleSelect && handleSelect(cat)}
           selected={selectedCategories.includes(cat)}
           viewOnly={viewOnly}
         />

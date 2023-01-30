@@ -5,6 +5,7 @@ type PropTypes = {
   label: string;
   selected: boolean;
   viewOnly: boolean;
+  onClick?: () => void | null;
 };
 
 const Chip = (props: PropTypes) => {

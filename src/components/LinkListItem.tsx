@@ -6,7 +6,8 @@ import styles from './LinkListItem.module.css';
 
 type PropTypes = {
   link: Link;
-  updateLocalData: () => void;
+  updateLocalData: (newData: Link[]) => void;
+
   links: Link[];
 };
 

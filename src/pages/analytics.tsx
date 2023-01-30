@@ -3,7 +3,8 @@ import TimeLine from '@/components/TimeLine';
 
 type PropTypes = {
   data: Link[];
-  updateLocalData: () => void;
+  updateLocalData: (newData: Link[]) => void;
+
   clearLocalData: () => void;
 };
 

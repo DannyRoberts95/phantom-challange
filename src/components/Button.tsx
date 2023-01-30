@@ -2,7 +2,9 @@ import React from 'react';
 import styles from './Button.module.css';
 
 type PropTypes = {
-  variant: string;
+  variant?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
 };
 
 const Button = (props: PropTypes) => {

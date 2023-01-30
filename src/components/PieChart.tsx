@@ -9,7 +9,7 @@ type PropTypes = {
 };
 
 const CustomTooltip = (props) => {
-  const { active, payload, label } = props;
+  const { active, payload } = props;
   if (active && payload && payload.length) {
     return (
       <div className={classes.tooltip}>
@@ -61,14 +61,13 @@ export default function MyPieChart(props: PropTypes) {
     router.push(`/?category=${`${key}`.toLowerCase()}`);
   };
 
-  console.log(isMd);
   const size = !isMd ? 300 : 450;
   const outerRadius = !isMd ? 80 : 120;
   const innerRadius = !isMd ? 40 : 80;
 
   const colors = useMemo<string[]>(() => {
     const step = 255 / cleanedData.length;
-    const cols = [];
+    const cols: string[] = [];
     cleanedData.forEach((item, i) => {
       const a = (step * (i + 1)) / 255;
       cols.push(`rgba(0,0,0,${a})`);

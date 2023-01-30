@@ -32,9 +32,7 @@ export default function TimeLine(props: PropTypes) {
           ...item,
           time: new Date(item.timestamp).getHours(),
         }))
-        .sort(
-          (a: Link, b: Link) => new Date(b.timestamp) - new Date(a.timestamp),
-        ),
+        .sort((a: Link, b: Link) => b.timestamp - a.timestamp),
     [data],
   );
 
