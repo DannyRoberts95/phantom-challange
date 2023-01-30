@@ -25,6 +25,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
   const handleInputChange = (e) => {
     const { value } = e.target;
+    setErrorMessage(``);
     setLinkInputValue(value.trim());
   };
 
@@ -51,19 +52,19 @@ const CreateLinkModal = (props: PropTypes) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //Comment to add filler list items
-    setErrorMessage(``);
-    setLinkInputValue(``);
-    setCategories([]);
+    // //Comment to add filler list items
+    // setErrorMessage(``);
+    // setLinkInputValue(``);
+    // setCategories([]);
 
-    const fakeDate = Math.floor(Math.random() * new Date().getTime());
-    const fakeLink: Link = {
-      url: `https://derp.com/${Math.random()}`,
-      timestamp: new Date(fakeDate).getTime(),
-      categories,
-    };
-    updateLocalData([fakeLink, ...links]);
-    return;
+    // const fakeDate = Math.floor(Math.random() * new Date().getTime());
+    // const fakeLink: Link = {
+    //   url: `https://derp.com/${Math.random()}`,
+    //   timestamp: new Date(fakeDate).getTime(),
+    //   categories,
+    // };
+    // updateLocalData([fakeLink, ...links]);
+    // return;
 
     //Validate the form...
 

@@ -8,14 +8,13 @@ type PropTypes = {
   link: Link;
   updateLocalData: () => void;
   links: Link[];
-  number: number | string;
 };
 
 const LinkListItem = ({
   link,
   links,
   updateLocalData,
-  number,
+
   ...others
 }: PropTypes) => {
   const deleteLink = () => {

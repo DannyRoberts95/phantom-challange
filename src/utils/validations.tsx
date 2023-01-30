@@ -2,8 +2,9 @@ const isEmpty = (value: string): boolean => !value || value.length <= 0;
 
 const isNotValidUrl = (value: string): boolean => {
   try {
-    return Boolean(new URL(value)) ? false : true;
-  } catch (e) {
+    new URL(value);
+    return false;
+  } catch (err) {
     return true;
   }
 };

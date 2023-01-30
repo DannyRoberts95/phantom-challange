@@ -92,7 +92,11 @@ const LinkList = (props: PropTypes): JSX.Element => {
     return arr;
   }, [parsedPageValue, links, selectedCategories]);
 
-  const pageCount = Math.floor(renderLinks.length / maxLinksPerPage);
+  const pageCount = Math.ceil(linkCount / maxLinksPerPage);
+
+  console.log(pageCount);
+  console.log(page);
+  console.log(links);
 
   return (
     <div className={styles.root}>
@@ -111,7 +115,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
       <div className={styles.list}>
         {renderLinks.map((link, i) => (
           <LinkListItem
-            number={i}
             updateLocalData={updateLocalData}
             key={link.timestamp}
             link={link}
@@ -132,7 +135,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
         </h5>
 
         <div>
-          {parsedPageValue < pageCount && parsedPageValue != pageCount && (
+          {parsedPageValue < pageCount && (
             <Button onClick={handleNext}>Next</Button>
           )}
         </div>

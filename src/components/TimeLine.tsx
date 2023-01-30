@@ -48,8 +48,13 @@ export default function TimeLine(props: PropTypes) {
           ).getHours()}:00`}</p>
           {payload.map((item) => (
             <span key={item.payload.url}>
-              <p>{item.payload.url}</p>
-              <ChipList categories={item.payload.categories} viewOnly />
+              <b>
+                <p>{item.payload.url}</p>
+              </b>
+              {item.payload.categories && (
+                <ChipList categories={item.payload.categories} viewOnly />
+              )}
+              <p className="text-sm">VIEW</p>
             </span>
           ))}
         </div>

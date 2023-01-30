@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 
 import { Oswald } from '@next/font/google';
 
+//Preload the oswald font from google
 // eslint-disable-next-line @typescript-eslint/quotes
 const font = Oswald({ subsets: ['latin'] });
 
