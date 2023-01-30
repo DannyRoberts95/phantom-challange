@@ -80,14 +80,14 @@ const CreateLinkModal = (props: PropTypes) => {
       return false;
     }
 
-    // Is the url reachable?
+    // Ping next serverless and see if the url reachable
     await fetch(`api/checkUrl`, {
       method: `POST`,
       body: JSON.stringify({ url: linkInputValue }),
     }).then(async (res) => {
       const { valid } = await res.json();
       if (!valid) {
-        displayErrorMessage(`URL dosn't seem to exist...`);
+        displayErrorMessage(`That URL dosn't exist bro...`);
         return false;
       }
     });

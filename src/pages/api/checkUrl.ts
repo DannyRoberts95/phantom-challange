@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   const { url } = JSON.parse(req.body);
-  const valid = await isReachable(url);
-  console.log(`${url} is valid?`, valid);
-  res.status(200).json({ valid });
+  await isReachable(url).then((valid) => {
+    res.status(200).json({ valid });
+  });
 }

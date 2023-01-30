@@ -94,10 +94,6 @@ const LinkList = (props: PropTypes): JSX.Element => {
 
   const pageCount = Math.ceil(linkCount / maxLinksPerPage);
 
-  console.log(pageCount);
-  console.log(page);
-  console.log(links);
-
   return (
     <div className={styles.root}>
       <p className="text-base">
