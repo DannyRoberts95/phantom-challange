@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
@@ -14,7 +17,7 @@ import classes from './PieChart.module.css';
 import {
   ValueType,
   NameType,
-} from 'recharts/src/component/DefaultTooltipContent';
+} from 'recharts/lib/component/DefaultTooltipContent';
 
 type PiePropTypes = {
   data: Link[];
@@ -46,6 +49,7 @@ export default function MyPieChart(props: PiePropTypes) {
   const router = useRouter();
 
   const isMd = useMediaQuery(`md`);
+  console.log(isMd);
 
   const { data } = props;
 
@@ -90,7 +94,7 @@ export default function MyPieChart(props: PiePropTypes) {
       cols.push(`rgba(0,0,0,${a})`);
     });
     return cols;
-  }, [data]);
+  }, [cleanedData]);
 
   return (
     <div className={classes.root}>

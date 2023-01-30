@@ -1,7 +1,4 @@
-import PieChart from '@/components/PieChart';
-import CreateLinkSection from '@/components/CreateLinkSection';
 import LinkList from '@/components/LinkList';
-import TimeLine from '@/components/TimeLine';
 
 type PropTypes = {
   data: Link[];

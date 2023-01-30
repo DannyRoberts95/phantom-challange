@@ -114,7 +114,7 @@ const LinkList = (props: PropTypes): JSX.Element => {
       />
       {/* Links List*/}
       <div className={styles.list}>
-        {renderLinks.map((link, i) => (
+        {renderLinks.map((link) => (
           <LinkListItem
             updateLocalData={updateLocalData}
             key={link.timestamp}

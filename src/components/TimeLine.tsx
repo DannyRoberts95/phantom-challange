@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import {
@@ -13,7 +15,7 @@ import {
 import {
   ValueType,
   NameType,
-} from 'recharts/src/component/DefaultTooltipContent';
+} from 'recharts/lib/component/DefaultTooltipContent';
 
 import styles from './TimeLine.module.css';
 import ChipList from './ChipList';

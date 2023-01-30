@@ -1,5 +1,4 @@
-import PieChart from '@/components/PieChart';
-import TimeLine from '@/components/TimeLine';
+import dynamic from 'next/dynamic';
 
 type PropTypes = {
   data: Link[];
@@ -9,6 +8,13 @@ type PropTypes = {
 };
 
 export default function Index({ data }: PropTypes) {
+  const TimeLine = dynamic(() => import(`@/components/TimeLine`), {
+    ssr: false,
+  });
+  const PieChart = dynamic(() => import(`@/components/PieChart`), {
+    ssr: false,
+  });
+
   return (
     <div>
       <TimeLine data={data} />
