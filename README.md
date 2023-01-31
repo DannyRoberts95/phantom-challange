@@ -24,7 +24,7 @@ Open `http://localhost:3000` with your browser to see the result.
 
 Open `https://phantom-challange.vercel.app/` with your browser to see the result.
 
-the application is built using typescript, React.js, and plain css (to my shigrin) as per the technical brief.
+the application is built using typescript, React.js, and plain css (to my shigrin, suddenly tailwind isn't so bad) as per the technical brief.
 The app is deployed using vercel and scores a 100 across all Lighhouse metrics.
 
 The app uses localStorage on the client browser to store and persist links saved by the user.
@@ -117,7 +117,24 @@ The user can view a sequential chart of thier links over time and by time of day
 
 ### Requirements
 
-- Node.js >= 12.22.0
+- Basic layout (HTML/CSS).✅
+- Pure JavaScript (or React/Angular if preferred)✅
+- Displays a form on the top of the page that lets a user submit a
+  link.✅
+- The form should validate whether the input is a valid URL ✅
+
+- Whether the URL exists ❌
+- Displays the list of links with pagination so 20 links are shown per
+  page.✅
+- The pagination should include numbered pagination with next and
+  previous links eg. < 1 2 3 >.✅
+- Users can remove links and clear all.✅
+- Form validation must be custom written.✅
+- All links entered in the list must persist page reload.✅
+- Source code to be linked to a repository (private or public).✅
+- A public/hosted link to the final app.✅
+- Feel free to add any additional features that further demonstrates
+  your skills. ✅
 
 ### Directory Structure
 
