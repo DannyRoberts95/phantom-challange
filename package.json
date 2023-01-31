@@ -15,8 +15,8 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
-    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "lint": " echo LINTING IT UP!! && eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "format": "echo FORMATTING BAAAAABY && prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "postinstall": "husky install"
   },
   "lint-staged": {
@@ -24,11 +24,6 @@
       "eslint --ignore-path .gitignore --fix",
       "prettier --ignore-path .gitignore --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run format && git add -A"
-    }
   },
   "dependencies": {
     "@next/font": "13.1.6",
