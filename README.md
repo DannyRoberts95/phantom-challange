@@ -22,7 +22,7 @@ Open `http://localhost:3000` with your browser to see the result.
 
 ## Documentation
 
-Open `http://localhost:3000` with your browser to see the result.
+Open `https://phantom-challange.vercel.app/` with your browser to see the result.
 
 ### Requirements
 
