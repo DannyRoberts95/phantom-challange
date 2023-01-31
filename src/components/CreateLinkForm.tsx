@@ -86,18 +86,19 @@ const CreateLinkModal = (props: PropTypes) => {
     // Is it a valid url format?
 
     // Ping next serverless function and see if the url reachable
-    const isReachable = await fetch(`api/checkUrl`, {
-      method: `POST`,
-      body: JSON.stringify({ url: linkInputValue }),
-    }).then(async (res) => {
-      const { valid } = await res.json();
-      return valid;
-    });
+    // IsReachable package seems to give inconsistant results. Validation has been removed.
 
-    if (!isReachable) {
-      displayErrorMessage(`That URL dosn't exist bro...`);
-      return false;
-    }
+    // const isReachable = await fetch(`api/checkUrl`, {
+    //   method: `POST`,
+    //   body: JSON.stringify({ url: linkInputValue }),
+    // }).then(async (res) => {
+    //   const { valid } = await res.json();
+    //   return valid;
+    // });
+    // if (!isReachable) {
+    //   displayErrorMessage(`That URL dosn't exist bro...`);
+    //   return false;
+    // }
 
     // Seems to be valid if we made it this far.
     setErrorMessage(``);
