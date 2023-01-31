@@ -27,6 +27,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     setData([]);
   };
 
+  useEffect(() => {
+    console.groupCollapsed(
+      `%c🔮 Developed by Dan Howard. Check out the light house scores while you're here? 🔮 \n– https://www.danhowarddesign.com`,
+      `display:block;padding:0.125em 1em;font-family:courier;font-size:10px;font-weight:bold;line-height:2;text-transform:uppercase;background:black;color:white;`,
+    );
+    console.groupEnd();
+  }, []);
+
   // populate state using local data on app mount
   useEffect(() => {
     const localData = localStorage.getItem(DATA_KEY);

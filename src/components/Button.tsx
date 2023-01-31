@@ -3,10 +3,9 @@ import styles from './Button.module.css';
 
 type PropTypes = {
   variant?: string;
+  disabled?: boolean;
   children: React.ReactNode;
-  onClick?: (
-    e: React.MouseEventHandler<HTMLButtonElement>,
-  ) => void | Promise<false | undefined>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Button = (props: PropTypes) => {

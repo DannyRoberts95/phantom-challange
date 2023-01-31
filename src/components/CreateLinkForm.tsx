@@ -18,9 +18,11 @@ const CreateLinkModal = (props: PropTypes) => {
   const [linkInputValue, setLinkInputValue] = useState(``);
   const [categories, setCategories] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState(``);
+  const [checking, setChecking] = useState(false);
 
   const displayErrorMessage = (msg: string) => {
     setErrorMessage(msg);
+    setChecking(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +75,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
   const handleSubmit = async () => {
     //Validate the form...
+    setChecking(true);
 
     // Is it empty?
     if (isEmpty(linkInputValue)) {
@@ -81,27 +84,26 @@ const CreateLinkModal = (props: PropTypes) => {
     }
 
     // Is it a valid url format?
-    if (isNotValidUrl(linkInputValue)) {
-      displayErrorMessage(`Nah man, that URL is whack`);
-      return false;
-    }
 
-    // Ping next serverless and see if the url reachable
-    await fetch(`api/checkUrl`, {
+    // Ping next serverless function and see if the url reachable
+    const isReachable = await fetch(`api/checkUrl`, {
       method: `POST`,
       body: JSON.stringify({ url: linkInputValue }),
     }).then(async (res) => {
       const { valid } = await res.json();
-      if (!valid) {
-        displayErrorMessage(`That URL dosn't exist bro...`);
-        return false;
-      }
+      return valid;
     });
+
+    if (!isReachable) {
+      displayErrorMessage(`That URL dosn't exist bro...`);
+      return false;
+    }
 
     // Seems to be valid if we made it this far.
     setErrorMessage(``);
     setLinkInputValue(``);
     setCategories([]);
+    setChecking(false);
 
     const newLink: Link = {
       url: linkInputValue,
@@ -135,8 +137,13 @@ const CreateLinkModal = (props: PropTypes) => {
       {/* Clear all button */}
       <div className={styles.actions}>
         <div className={styles.buttons}>
-          <Button onClick={handleSubmit} variant="primary">
-            ADD NEW LINK
+          <Button
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onClick={checking ? () => {} : handleSubmit}
+            variant="primary"
+            disabled={checking}
+          >
+            {checking ? `CHECKING...` : `ADD NEW LINK`}
           </Button>
           <Button onClick={handleFakeSubmit}>FAKE LINK</Button>
         </div>
