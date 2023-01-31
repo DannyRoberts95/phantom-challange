@@ -14,7 +14,7 @@ const Chip = (props: PropTypes) => {
     <div
       className={styles.root}
       style={{
-        opacity: selected ? 1 : 0.4,
+        opacity: selected ? 1 : 0.66,
         cursor: viewOnly ? `auto` : `pointer`,
       }}
       {...others}
