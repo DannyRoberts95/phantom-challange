@@ -17,8 +17,8 @@ export default function Index({ data }: PropTypes) {
 
   return (
     <div>
-      <TimeLine data={data} />
       <PieChart data={data} />
+      <TimeLine data={data} />
     </div>
   );
 }
