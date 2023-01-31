@@ -78,7 +78,7 @@ const CreateLinkModal = (props: PropTypes) => {
 
     // Is it a valid url format?
     if (isNotValidUrl(linkInputValue)) {
-      displayErrorMessage(`Nah man, that link is whack...`);
+      displayErrorMessage(`Nah man, that URL is whack`);
       return false;
     }
 
