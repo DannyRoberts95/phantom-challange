@@ -40,6 +40,5 @@ Open `http://localhost:3000` with your browser to see the result.
 - `npm dev` — Starts the application in development mode at `http://localhost:3000`.
 - `npm build` — Creates an optimized production build of your application.
 - `npm start` — Starts the application in production mode.
-- `npm type-check` — Validate code using TypeScript compiler.
 - `npm lint` — Runs ESLint for all files in the `src` directory.
 - `npm format` — Runs Prettier for all files in the `src` directory.
