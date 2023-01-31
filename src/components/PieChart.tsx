@@ -23,6 +23,7 @@ type PiePropTypes = {
   data: Link[];
 };
 
+// Render a custom tooltip
 const CustomTooltip = ({
   active,
   payload,
@@ -49,10 +50,10 @@ export default function MyPieChart(props: PiePropTypes) {
   const router = useRouter();
 
   const isMd = useMediaQuery(`md`);
-  console.log(isMd);
 
   const { data } = props;
 
+  //Clean the data p0assed to the chart and shape it for use with recharts
   const cleanedData = useMemo(() => {
     const allCats: string[] = [];
     data.forEach((item) => item.categories.forEach((cat) => allCats.push(cat)));
@@ -74,8 +75,12 @@ export default function MyPieChart(props: PiePropTypes) {
         uncategorised.tally++;
       }
     });
+    // Filter out cats with a value of 0
+    const nullFiltered = [...tallied, uncategorised].filter(
+      (item) => item.tally > 0,
+    );
 
-    return [...tallied, uncategorised];
+    return nullFiltered;
   }, [data]);
 
   const handleClick = ({ key }: { key: string }) => {
@@ -86,6 +91,7 @@ export default function MyPieChart(props: PiePropTypes) {
   const outerRadius = !isMd ? 80 : 120;
   const innerRadius = !isMd ? 40 : 80;
 
+  // Generate a color palette based on the number of data points
   const colors = useMemo<string[]>(() => {
     const step = 255 / cleanedData.length;
     const cols: string[] = [];

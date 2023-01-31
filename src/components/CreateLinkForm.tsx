@@ -55,19 +55,23 @@ const CreateLinkModal = (props: PropTypes) => {
     setLinkInputValue(``);
     setCategories([]);
 
+    const randomCategory = () => {
+      const cats = computeAvailableCategories();
+      const i = Math.floor(Math.random() * cats.length);
+      return cats[i] || `hireDan`;
+    };
+
     const fakeDate = Math.floor(Math.random() * new Date().getTime());
     const fakeLink: Link = {
-      url: `https://derp.com/${Math.random()}`,
+      url: `https://fakelink.com/${Math.random()}`,
       timestamp: new Date(fakeDate).getTime(),
-      categories,
+      categories: [...new Set([randomCategory(), randomCategory()])],
     };
     updateLocalData([fakeLink, ...links]);
     return;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     //Validate the form...
 
     // Is it empty?
@@ -98,6 +102,7 @@ const CreateLinkModal = (props: PropTypes) => {
     setErrorMessage(``);
     setLinkInputValue(``);
     setCategories([]);
+
     const newLink: Link = {
       url: linkInputValue,
       timestamp: new Date().getTime(),
@@ -108,7 +113,7 @@ const CreateLinkModal = (props: PropTypes) => {
   };
 
   return (
-    <form className={styles.root} onSubmit={handleSubmit} noValidate>
+    <div className={styles.root}>
       <input
         className={styles.linkInput}
         name="link"
@@ -129,10 +134,15 @@ const CreateLinkModal = (props: PropTypes) => {
 
       {/* Clear all button */}
       <div className={styles.actions}>
-        <Button variant="primary">ADD NEW LINK</Button>
+        <div className={styles.buttons}>
+          <Button onClick={handleSubmit} variant="primary">
+            ADD NEW LINK
+          </Button>
+          <Button onClick={handleFakeSubmit}>FAKE LINK</Button>
+        </div>
         <Button onClick={clearLocalData}>Delete All</Button>
       </div>
-    </form>
+    </div>
   );
 };
 

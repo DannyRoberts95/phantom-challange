@@ -55,7 +55,7 @@ export default function TimeLine(props: ChartPropTypes) {
         <div className={styles.tooltip}>
           <p className="label">{`${formatDate(label)} @ ${new Date(
             label,
-          ).getHours()}:00`}</p>
+          ).getHours()}:${new Date(label).getMinutes()}`}</p>
           {payload.map((item: any) => (
             <span key={item.payload.url}>
               <b>

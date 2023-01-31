@@ -72,7 +72,7 @@ const CreateLinkModal = (props: PropTypes) => {
       </div>
 
       {/* Select a category */}
-      {categories.map((cat) => (
+      {categories.sort().map((cat) => (
         <Chip
           key={cat}
           label={cat}

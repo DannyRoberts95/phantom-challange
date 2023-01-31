@@ -20,3 +20,6 @@
   display: flex;
   justify-content: space-between;
 }
+.buttons * {
+  margin-right: 1rem;
+}
