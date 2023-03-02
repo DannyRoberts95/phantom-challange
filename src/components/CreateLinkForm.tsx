@@ -84,6 +84,10 @@ const CreateLinkModal = (props: PropTypes) => {
     }
 
     // Is it a valid url format?
+    if (isNotValidUrl(linkInputValue)) {
+      displayErrorMessage(`Bro, that don't look like a URL to me...`);
+      return false;
+    }
 
     // Ping next serverless function and see if the url reachable
     // IsReachable package seems to give inconsistant results. Validation has been removed.
